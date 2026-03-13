@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brazza & Brasa | Churrascaria</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        barlow: ['Barlow', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: '#e65100', // Laranja Brasa
+                        dark: '#1a1a1a' 
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="font-barlow text-gray-800 bg-[#fafafa]">
+
+<header class="flex items-center justify-between px-6 mt-[5vh]">
+    <figure>
+        <img src="./assets/image-removebg-preview (1).png"
+             alt="Língua de fogo"
+             class="w-[30vw] max-w-[160px]">
+    </figure>
+
+    <button id="menuBtn" class="md:hidden text-3xl">
+        ☰
+    </button>
+
+    <nav class="hidden md:block">
+        <ul class="flex gap-8 text-lg font-semibold">
+            <li><a href="#cardapio" class="hover:text-primary transition">O Cardápio</a></li>
+            <li><a href="#contato" class="hover:text-primary transition">Reservas</a></li>
+        </ul>
+    </nav>
+</header>
+
+<div id="mobileMenu"
+     class="fixed top-0 right-[-100%] w-[70%] h-full bg-white shadow-lg transition-all duration-300 p-8 md:hidden z-50">
+    <button id="closeBtn" class="text-2xl mb-6">✕</button>
+    <ul class="flex flex-col gap-6 text-lg">
+        <li><a href="#cardapio" class="hover:text-primary font-bold">O Cardápio</a></li>
+        <li><a href="#contato" class="hover:text-primary font-bold">Reservas</a></li>
+    </ul>
+</div>
+
+<section class="text-center p-8">
+    <div class="md:flex md:items-center md:justify-center md:gap-10">
+        <article class="md:w-[45%]">
+            <h1 class="text-4xl md:text-6xl font-black leading-none uppercase italic tracking-tighter text-[#2b1a12]">
+                O corte perfeito, <br> 
+                <span class="text-primary">na brasa quente.</span>
+            </h1>
+            <a href="#cardapio"
+               class="group inline-flex items-center justify-center gap-3 mt-6 px-10 py-4 bg-gradient-to-r from-primary to-orange-700 text-white rounded-full text-lg font-extrabold tracking-wide uppercase shadow-[0_10px_20px_rgba(230,81,0,0.3)] hover:shadow-[0_15px_30px_rgba(230,81,0,0.4)] transition-all duration-300 transform hover:-translate-y-1 active:scale-95">
+                <span>Ver Cortes do Dia</span>
+            </a>
+        </article>
+        <figure class="md:w-[45%] mt-6 md:mt-0">
+            <img src="./assets/uma-grelha-com-uma-variedade-de-carnes_188544-8372.jpg"
+                 alt="Churrasco na brasa"
+                 class="w-full rounded-3xl shadow-2xl">
+        </figure>
+    </div>
+</section>
+
+<section id="cardapio" class="max-w-[90vw] mx-auto mt-[5vh] p-8 bg-white rounded-3xl shadow-sm">
+    <h2 class="text-3xl font-bold text-center mb-8 uppercase tracking-tighter">
+        Nosso Cardápio
+    </h2>
+    
+    <nav id="nav-categorias" class="overflow-x-auto whitespace-nowrap snap-x flex gap-2 mt-6 pb-2 no-scrollbar">
+        <button onclick="mudarCategoria('carnes')" data-cat="carnes" class="snap-start px-4 py-1 rounded-full bg-primary text-white font-bold text-sm transition-transform duration-150 cursor-pointer flex-shrink-0 btn-cat">
+            Cortes Nobres
+        </button>
+        <button onclick="mudarCategoria('guarnicoes')" data-cat="guarnicoes" class="snap-start px-4 py-1 rounded-full bg-[#ebebeb] text-dark font-bold text-sm transition-transform duration-150 cursor-pointer flex-shrink-0 btn-cat">
+            Acompanhamentos
+        </button>
+        <button onclick="mudarCategoria('bebidas')" data-cat="bebidas" class="snap-start px-4 py-1 rounded-full bg-[#ebebeb] text-dark font-bold text-sm transition-transform duration-150 cursor-pointer flex-shrink-0 btn-cat">
+            Bebidas
+        </button>
+     </nav>
+
+    <div id="cat-carnes" class="categoria-conteudo">
+        <h3 class="text-primary text-xl mt-8 font-bold flex items-center gap-2"> Cortes Nobres</h3>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-4">
+            <div class="bg-white rounded-[20px] p-3 shadow-sm border border-gray-100 relative flex flex-col hover:shadow-md transition-shadow group">
+                <div class="absolute inset-0 z-0 cursor-pointer" onclick="abrirModalDetalhes('Picanha Premium', 115.00, 'Corte alto, grelhada no sal grosso.', './assets/images/picanha.png', 'c_1')"></div>
+                <img src="./assets/images/picanha.png" class="w-full h-24 object-contain mb-2 mt-2 transition-transform duration-300 group-hover:scale-105 pointer-events-none relative z-10">
+                <div class="text-left w-full mt-auto relative z-10 pointer-events-none">
+                    <h4 class="font-bold text-dark text-sm leading-tight">Picanha Premium</h4>
+                    <p class="text-primary font-black text-lg leading-none mt-1">R$ 115,00</p>
+                </div>
+                <button onclick="adicionarItem('c_1', 'Picanha Premium', 115.00)" class="w-full bg-primary text-white py-2 rounded-xl text-xs font-bold mt-3 shadow-md hover:bg-red-700 active:scale-95 transition-all z-10 relative">Adicionar</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="cat-guarnicoes" class="categoria-conteudo hidden">
+        <h3 class="text-primary text-xl mt-8 font-bold flex items-center gap-2"> Acompanhamentos</h3>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-4">
+            <div class="bg-white rounded-[20px] p-3 shadow-sm border border-gray-100 relative flex flex-col hover:shadow-md transition-shadow group">
+                <div class="absolute inset-0 z-0 cursor-pointer" onclick="abrirModalDetalhes('Arroz Carreteiro', 35.00, 'Tradicional com charque.', './assets/images/carreteiro.png', 'g_1')"></div>
+                <img src="./assets/images/carreteiro.png" class="w-full h-24 object-contain mb-2 mt-2 relative z-10">
+                <div class="text-left w-full mt-auto relative z-10">
+                    <h4 class="font-bold text-dark text-sm leading-tight">Arroz Carreteiro</h4>
+                    <p class="text-primary font-black text-lg mt-1">R$ 35,00</p>
+                </div>
+                <button onclick="adicionarItem('g_1', 'Arroz Carreteiro', 35.00)" class="w-full bg-primary text-white py-2 rounded-xl text-xs font-bold mt-3 z-10 relative">Adicionar</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="cat-bebidas" class="categoria-conteudo hidden">
+        <h3 class="text-primary text-xl mt-8 font-bold flex items-center gap-2"> Bebidas & Drinques</h3>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-4">
+            <div class="bg-white rounded-[20px] p-3 shadow-sm border border-gray-100 relative flex flex-col hover:shadow-md transition-shadow group">
+                <div class="absolute inset-0 z-0 cursor-pointer" onclick="abrirModalDetalhes('Chopp Artesanal', 16.00, 'Cerveja gelada.', './assets/images/chopp.png', 'b_1')"></div>
+                <img src="./assets/images/chopp.png" class="w-full h-24 object-contain mb-2 mt-2 relative z-10">
+                <div class="text-left w-full mt-auto relative z-10">
+                    <h4 class="font-bold text-dark text-sm leading-tight">Chopp (500ml)</h4>
+                    <p class="text-primary font-black text-lg mt-1">R$ 16,00</p>
+                </div>
+                <button onclick="adicionarItem('b_1', 'Chopp Artesanal', 16.00)" class="w-full bg-primary text-white py-2 rounded-xl text-xs font-bold mt-3 z-10 relative">Adicionar</button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="contato" class="max-w-[90vw] mx-auto mt-[5vh] p-8 text-center bg-dark text-white rounded-3xl">
+    <h2 class="text-3xl font-bold mb-6 text-primary">Onde estamos</h2>
+    <div class="space-y-2 text-lg">
+        <p>📍 Avenida das Brasas, 1000 - Centro</p>
+        <p>📞 (15) 9999-8888</p>
+        <p>🕒 Terça a Domingo: 11h às 23h</p>
+    </div>
+</section>
+
+<footer class="bg-dark text-gray-400 text-center p-12 mt-[5vh] border-t border-gray-800">
+    <p>© 2026 Brazza & Brasa - Paixão por Churrasco</p>
+</footer>
+
+<div id="detalhes-modal" class="fixed inset-0 bg-black/70 z-[150] flex justify-center items-center opacity-0 pointer-events-none transition-opacity duration-300 px-4">
+    <div class="bg-white w-full max-w-[400px] rounded-[30px] overflow-hidden transform scale-95 transition-transform duration-300 relative flex flex-col" id="detalhes-modal-content">
+        <button onclick="fecharModalDetalhes()" class="absolute top-4 right-4 bg-white/80 backdrop-blur-md text-dark w-10 h-10 rounded-full flex justify-center items-center font-bold text-2xl shadow-sm z-10 hover:text-primary">&times;</button>
+        <div class="w-full h-[250px] bg-gray-50 flex justify-center items-center p-8">
+            <img id="detalhes-img" src="" class="w-full h-full object-contain drop-shadow-xl">
+        </div>
+        <div class="p-6">
+            <h2 id="detalhes-nome" class="text-2xl font-black text-dark mb-1">Nome</h2>
+            <p id="detalhes-preco" class="text-xl font-black text-primary mb-4">R$ 0,00</p>
+            <p id="detalhes-desc" class="text-gray-600 text-sm mb-6">Descrição...</p>
+            <button id="detalhes-btn-add" class="w-full bg-primary text-white py-4 rounded-xl text-lg font-bold shadow-lg active:scale-95 transition-all">Adicionar ao Pedido</button>
+        </div>
+    </div>
+</div>
+
+<div id="carrinho-footer" class="fixed bottom-0 left-0 w-full bg-primary text-white p-4 z-50 transform translate-y-full transition-transform duration-300 flex justify-between items-center cursor-pointer shadow-2xl">
+    <div>
+        <p class="text-xs opacity-90">Resumo do Pedido</p>
+        <p class="text-lg font-bold">Total: <span id="carrinho-total">R$ 0,00</span></p>
+    </div>
+    <button class="bg-white text-primary px-5 py-2 rounded-xl font-bold text-sm">Ver Carrinho</button>
+</div>
+
+<script>
+    // --- CATEGORIAS ---
+    const botoes = document.querySelectorAll('.btn-cat');
+    const conteudos = document.querySelectorAll('.categoria-conteudo');
+
+    function mudarCategoria(cat) {
+        conteudos.forEach(div => {
+            if (div.id === 'cat-' + cat) {
+                div.classList.remove('hidden');
+            } else {
+                div.classList.add('hidden');
+            }
+        });
+
+        botoes.forEach(btn => {
+            if (btn.dataset.cat === cat) {
+                btn.classList.add('bg-primary', 'text-white');
+                btn.classList.remove('bg-[#ebebeb]', 'text-dark');
+            } else {
+                btn.classList.remove('bg-primary', 'text-white');
+                btn.classList.add('bg-[#ebebeb]', 'text-dark');
+            }
+        });
+    }
+
+    // --- CARRINHO ---
+    let carrinho = [];
+
+    function adicionarItem(id, nome, preco) {
+        carrinho.push({ id, nome, preco });
+        atualizarInterface();
+    }
+
+    function atualizarInterface() {
+        const total = carrinho.reduce((sum, i) => sum + i.preco, 0);
+        document.getElementById('carrinho-total').innerText = total.toLocaleString('pt-BR', {style: 'currency', currency: 'BRL'});
+        const footer = document.getElementById('carrinho-footer');
+        total > 0 ? footer.classList.remove('translate-y-full') : footer.classList.add('translate-y-full');
+    }
+
+    function abrirModalDetalhes(nome, preco, desc, img, id) {
+        document.getElementById('detalhes-nome').innerText = nome;
+        document.getElementById('detalhes-preco').innerText = preco.toLocaleString('pt-BR', {style: 'currency', currency: 'BRL'});
+        document.getElementById('detalhes-desc').innerText = desc;
+        document.getElementById('detalhes-img').src = img;
+        document.getElementById('detalhes-btn-add').onclick = () => {
+            adicionarItem(id, nome, preco);
+            fecharModalDetalhes();
+        };
+        document.getElementById('detalhes-modal').classList.remove('opacity-0', 'pointer-events-none');
+        document.getElementById('detalhes-modal-content').classList.replace('scale-95', 'scale-100');
+    }
+
+    function fecharModalDetalhes() {
+        document.getElementById('detalhes-modal-content').classList.replace('scale-100', 'scale-95');
+        setTimeout(() => document.getElementById('detalhes-modal').classList.add('opacity-0', 'pointer-events-none'), 300);
+    }
+
+    // Menu Mobile
+    const menuBtn = document.getElementById("menuBtn");
+    const closeBtn = document.getElementById("closeBtn");
+    const mobileMenu = document.getElementById("mobileMenu");
+    menuBtn.onclick = () => mobileMenu.style.right = "0";
+    closeBtn.onclick = () => mobileMenu.style.right = "-100%";
+</script>
+</body>
+</html>

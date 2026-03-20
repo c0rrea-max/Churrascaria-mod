@@ -55,6 +55,19 @@
         <li><a href="#contato" class="hover:text-primary font-bold">Reservas</a></li>
     </ul>
 </div>
+<script>
+    // Menu Mobile
+    const menuBtn = document.getElementById("menuBtn");
+    const closeBtn = document.getElementById("closeBtn");
+    const mobileMenu = document.getElementById("mobileMenu");
+
+    menuBtn.onclick = () => {
+        mobileMenu.style.right = "0";
+    };
+    closeBtn.onclick = () => {
+        mobileMenu.style.right = "-100%";
+    };
+</script>
 
 <section class="text-center p-8">
     <div class="md:flex md:items-center md:justify-center md:gap-10">
@@ -98,7 +111,7 @@
         <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-4">
             <div class="bg-white rounded-[20px] p-3 shadow-sm border border-gray-100 relative flex flex-col hover:shadow-md transition-shadow group">
                 <div class="absolute inset-0 z-0 cursor-pointer" onclick="abrirModalDetalhes('Picanha Premium', 115.00, 'Corte alto, grelhada no sal grosso.', './assets/images/picanha.png', 'c_1')"></div>
-                <img src="./assets/images/picanha.png" class="w-full h-24 object-contain mb-2 mt-2 transition-transform duration-300 group-hover:scale-105 pointer-events-none relative z-10">
+                <img src="./assets/picanha.jpg" class="w-full h-24 object-contain mb-2 mt-2 transition-transform duration-300 group-hover:scale-105 pointer-events-none relative z-10">
                 <div class="text-left w-full mt-auto relative z-10 pointer-events-none">
                     <h4 class="font-bold text-dark text-sm leading-tight">Picanha Premium</h4>
                     <p class="text-primary font-black text-lg leading-none mt-1">R$ 115,00</p>
@@ -113,7 +126,7 @@
         <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-4">
             <div class="bg-white rounded-[20px] p-3 shadow-sm border border-gray-100 relative flex flex-col hover:shadow-md transition-shadow group">
                 <div class="absolute inset-0 z-0 cursor-pointer" onclick="abrirModalDetalhes('Arroz Carreteiro', 35.00, 'Tradicional com charque.', './assets/images/carreteiro.png', 'g_1')"></div>
-                <img src="./assets/images/carreteiro.png" class="w-full h-24 object-contain mb-2 mt-2 relative z-10">
+                <img src="./assets/arroz.jpg" class="w-full h-24 object-contain mb-2 mt-2 relative z-10">
                 <div class="text-left w-full mt-auto relative z-10">
                     <h4 class="font-bold text-dark text-sm leading-tight">Arroz Carreteiro</h4>
                     <p class="text-primary font-black text-lg mt-1">R$ 35,00</p>
@@ -128,7 +141,7 @@
         <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-4">
             <div class="bg-white rounded-[20px] p-3 shadow-sm border border-gray-100 relative flex flex-col hover:shadow-md transition-shadow group">
                 <div class="absolute inset-0 z-0 cursor-pointer" onclick="abrirModalDetalhes('Chopp Artesanal', 16.00, 'Cerveja gelada.', './assets/images/chopp.png', 'b_1')"></div>
-                <img src="./assets/images/chopp.png" class="w-full h-24 object-contain mb-2 mt-2 relative z-10">
+                <img src="./assets/chopp.jpg" class="w-full h-24 object-contain mb-2 mt-2 relative z-10">
                 <div class="text-left w-full mt-auto relative z-10">
                     <h4 class="font-bold text-dark text-sm leading-tight">Chopp (500ml)</h4>
                     <p class="text-primary font-black text-lg mt-1">R$ 16,00</p>
@@ -175,32 +188,50 @@
     <button class="bg-white text-primary px-5 py-2 rounded-xl font-bold text-sm">Ver Carrinho</button>
 </div>
 
+<!-- ...existing code... -->
+
+<!-- Modal do Carrinho -->
+<div id="carrinho-modal" class="fixed inset-0 bg-black/60 z-[200] flex justify-center items-center opacity-0 pointer-events-none transition-opacity duration-300">
+    <div class="bg-white w-full max-w-[400px] rounded-2xl p-6 relative">
+        <button onclick="fecharCarrinho()" class="absolute top-3 right-3 text-2xl font-bold text-primary">&times;</button>
+        <h2 class="text-xl font-bold mb-4 text-primary">Seu Carrinho</h2>
+        <div id="carrinho-itens" class="mb-4 text-dark text-sm"></div>
+        <div class="font-bold text-lg mb-2">Total: <span id="carrinho-modal-total">R$ 0,00</span></div>
+        <button onclick="fecharCarrinho()" class="w-full bg-primary text-white py-2 rounded-xl font-bold mt-2">Fechar</button>
+    </div>
+</div>
+
+<!-- ...existing code... -->
+ <!-- ...existing code... -->
+
+<!-- ...existing code... -->
+
 <script>
-    // --- CATEGORIAS ---
-    const botoes = document.querySelectorAll('.btn-cat');
-    const conteudos = document.querySelectorAll('.categoria-conteudo');
+// ...existing code...
 
-    function mudarCategoria(cat) {
-        conteudos.forEach(div => {
-            if (div.id === 'cat-' + cat) {
-                div.classList.remove('hidden');
-            } else {
-                div.classList.add('hidden');
-            }
-        });
+function mudarCategoria(cat) {
+    // Esconde todas as categorias
+    document.querySelectorAll('.categoria-conteudo').forEach(div => div.classList.add('hidden'));
+    // Remove destaque dos botões
+    document.querySelectorAll('.btn-cat').forEach(btn => {
+        btn.classList.remove('bg-primary', 'text-white');
+        btn.classList.add('bg-[#ebebeb]', 'text-dark');
+    });
+    // Mostra a categoria escolhida
+    document.getElementById('cat-' + cat).classList.remove('hidden');
+    // Destaca o botão ativo
+    document.querySelector(`button[data-cat="${cat}"]`).classList.add('bg-primary', 'text-white');
+    document.querySelector(`button[data-cat="${cat}"]`).classList.remove('bg-[#ebebeb]', 'text-dark');
+}
 
-        botoes.forEach(btn => {
-            if (btn.dataset.cat === cat) {
-                btn.classList.add('bg-primary', 'text-white');
-                btn.classList.remove('bg-[#ebebeb]', 'text-dark');
-            } else {
-                btn.classList.remove('bg-primary', 'text-white');
-                btn.classList.add('bg-[#ebebeb]', 'text-dark');
-            }
-        });
-    }
+// ...existing code...
+</script>
+
+<script>
+    // ...existing code...
 
     // --- CARRINHO ---
+
     let carrinho = [];
 
     function adicionarItem(id, nome, preco) {
@@ -215,30 +246,36 @@
         total > 0 ? footer.classList.remove('translate-y-full') : footer.classList.add('translate-y-full');
     }
 
-    function abrirModalDetalhes(nome, preco, desc, img, id) {
-        document.getElementById('detalhes-nome').innerText = nome;
-        document.getElementById('detalhes-preco').innerText = preco.toLocaleString('pt-BR', {style: 'currency', currency: 'BRL'});
-        document.getElementById('detalhes-desc').innerText = desc;
-        document.getElementById('detalhes-img').src = img;
-        document.getElementById('detalhes-btn-add').onclick = () => {
-            adicionarItem(id, nome, preco);
-            fecharModalDetalhes();
-        };
-        document.getElementById('detalhes-modal').classList.remove('opacity-0', 'pointer-events-none');
-        document.getElementById('detalhes-modal-content').classList.replace('scale-95', 'scale-100');
+    // --- VER CARRINHO ---
+    function abrirCarrinho() {
+        // Monta lista de itens
+        const itensDiv = document.getElementById('carrinho-itens');
+        if (carrinho.length === 0) {
+            itensDiv.innerHTML = '<p>Seu carrinho está vazio.</p>';
+        } else {
+            itensDiv.innerHTML = carrinho.map(item => 
+                `<div class="flex justify-between border-b py-1">
+                    <span>${item.nome}</span>
+                    <span>${item.preco.toLocaleString('pt-BR', {style: 'currency', currency: 'BRL'})}</span>
+                </div>`
+            ).join('');
+        }
+        // Atualiza total
+        const total = carrinho.reduce((sum, i) => sum + i.preco, 0);
+        document.getElementById('carrinho-modal-total').innerText = total.toLocaleString('pt-BR', {style: 'currency', currency: 'BRL'});
+        // Mostra modal
+        document.getElementById('carrinho-modal').classList.remove('opacity-0', 'pointer-events-none');
     }
 
-    function fecharModalDetalhes() {
-        document.getElementById('detalhes-modal-content').classList.replace('scale-100', 'scale-95');
-        setTimeout(() => document.getElementById('detalhes-modal').classList.add('opacity-0', 'pointer-events-none'), 300);
+    function fecharCarrinho() {
+        document.getElementById('carrinho-modal').classList.add('opacity-0', 'pointer-events-none');
     }
 
-    // Menu Mobile
-    const menuBtn = document.getElementById("menuBtn");
-    const closeBtn = document.getElementById("closeBtn");
-    const mobileMenu = document.getElementById("mobileMenu");
-    menuBtn.onclick = () => mobileMenu.style.right = "0";
-    closeBtn.onclick = () => mobileMenu.style.right = "-100%";
+    // Evento para o botão "Ver Carrinho"
+    document.querySelector('#carrinho-footer button').onclick = abrirCarrinho;
+
+    // ...existing code...
 </script>
+<!-- ...existing code... -->
 </body>
 </html>
